@@ -1,0 +1,157 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "Mission Customer Swagger",
+        "version": "1.0.0",
+        "title": "Swagger Mission",
+        "termsOfService": "http://swagger.io/terms/"
+    },
+    "host": "http://localhost:3000",
+    "basePath": "/specific/abode/vexp/customer",
+    "tags": [
+        {
+            "name": "Mission",
+            "description": "Create a Mission"
+        },
+        {
+            "name": "Communication",
+            "description": "Create a Communication"
+        }
+    ],
+    "schemes": [
+        "https",
+        "http"
+    ],
+    "paths": {
+        "/{customer_id}/mission_order": {
+            "post": {
+                "tags": [
+                    "Mission"
+                ],
+                "summary": "Create Mission",
+                "description": "Add mission information for a customer",
+                "operationId": "addMission",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Mission content",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Mission"
+                        }
+                    },
+                    {
+                        "name": "customer_id",
+                        "in": "query",
+                        "description": "Customer Id on Abode context will be customer_phone_number",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "405": {
+                        "description": "Invalid input"
+                    },
+                    "401": {
+                        "description": "Unathorized"
+                    },
+                    "200": {
+                        "description": "Mission Created",
+                        "schema": {
+                            "$ref": "#/definitions/Mission"
+                        }
+                    }
+                }
+            }
+        },
+        "/{customer_id}/mission_order/{mission_order_id}/communications": {
+            "post": {
+                "tags": [
+                    "Communication"
+                ],
+                "summary": "Create an Communication",
+                "description": "Add a communication for a mission. A complement can be added such date, simple comment, etc",
+                "operationId": "addCommunication",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Mission content",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Mission"
+                        }
+                    },
+                    {
+                        "name": "customer_id",
+                        "in": "query",
+                        "description": "Customer Id on Abode context will be customer_phone_number",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "405": {
+                        "description": "Invalid input"
+                    },
+                    "401": {
+                        "description": "Unathorized"
+                    },
+                    "200": {
+                        "description": "Mission Created",
+                        "schema": {
+                            "$ref": "#/definitions/Mission"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "Mission": {
+            "type": "object",
+            "required": [
+                "mission_order_id",
+                "mission_order_reference"
+            ],
+            "properties": {
+                "mission_order_id": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "mission_order_reference": {
+                    "type": "string",
+                    "example": "H123456"
+                },
+                "provider_name": {
+                    "type": "string",
+                    "example": "Provider Service Company Name"
+                },
+                "title": {
+                    "type": "string",
+                    "example": "Gas Boiler"
+                },
+                "description": {
+                    "type": "string",
+                    "example": "Heating repair and check for possible leaks"
+                }
+            },
+            "xml": {
+                "name": "Mission"
+            }
+        }
+    }
+}
