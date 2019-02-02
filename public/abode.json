@@ -92,13 +92,20 @@
                         "description": "Mission content",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/Mission"
+                            "$ref": "#/definitions/Communication"
                         }
                     },
                     {
                         "name": "customer_id",
                         "in": "query",
                         "description": "Customer Id on Abode context will be customer_phone_number",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "mission_order_id",
+                        "in": "query",
+                        "description": "Identifier of the Mission order",
                         "required": true,
                         "type": "string"
                     }
@@ -111,9 +118,9 @@
                         "description": "Unathorized"
                     },
                     "200": {
-                        "description": "Mission Created",
+                        "description": "Communication Created",
                         "schema": {
-                            "$ref": "#/definitions/Mission"
+                            "$ref": "#/definitions/Communication"
                         }
                     }
                 }
@@ -151,6 +158,47 @@
             },
             "xml": {
                 "name": "Mission"
+            }
+        },
+        "Communication": {
+            "type": "object",
+            "required": [
+                "type"
+            ],
+            "properties": {
+                "type": {
+                    "type": "string",
+                    "example": "MISSION_CREATED",
+                    "enum": [
+                        "MISSION_CREATED",
+                        "APPOINTMENT_CONFIRMATION_REQUIRED",
+                        "APPOINTMENT_CONFIRMED",
+                        "APPOINTMENT_DECLINED",
+                        "WAITING",
+                        "PICTURES_UPLOAD_REQUIRED",
+                        "PICTURES_UPLOADED",
+                        "SUMMARY_GENERATED",
+                        "JOURNEY_FINISHED_ABNORMALLY",
+                        "SERVICE_NOTIFICATION",
+                        "NOTIFICATION_SENT",
+                        "MISSION_CLOSED"
+                    ]
+                },
+                "additional_information": {
+                    "type": "string",
+                    "example": "Additional description"
+                },
+                "date": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "description": {
+                    "type": "string",
+                    "example": "Description"
+                }
+            },
+            "xml": {
+                "name": "Communication"
             }
         }
     }
